@@ -1,0 +1,13 @@
+{
+  "name": "desktop-pond",
+  "version": "1.0.0",
+  "description": "悬浮在桌面上的小鱼塘",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^35.0.0"
+  }
+}

@@ -1,0 +1,962 @@
+{
+  "setId": "tide-1",
+  "setName": "退潮",
+  "wave": 1,
+  "theme": "海洋垃圾",
+  "kind": "收藏品",
+  "counts": {
+    "普通": 18,
+    "稀有": 18,
+    "史诗": 10,
+    "传说": 4
+  },
+  "cards": [
+    {
+      "id": "OG-001",
+      "no": 1,
+      "name": "塑料瓶",
+      "rarity": "普通",
+      "art": "plastic-bottle",
+      "lines": [
+        "盖子拧紧了。",
+        "海没有。"
+      ],
+      "flavor": "盖子拧紧了。\n海没有。",
+      "flat": "flat/OG-001.png",
+      "painting": "art/plastic-bottle.jpg"
+    },
+    {
+      "id": "OG-002",
+      "no": 2,
+      "name": "塑料瓶",
+      "rarity": "稀有",
+      "art": "plastic-bottle",
+      "lines": [
+        "标签还在。",
+        "保质期写着：涨潮。"
+      ],
+      "flavor": "标签还在。\n保质期写着：涨潮。",
+      "flat": "flat/OG-002.png",
+      "painting": "art/plastic-bottle.jpg"
+    },
+    {
+      "id": "OG-003",
+      "no": 3,
+      "name": "塑料瓶",
+      "rarity": "史诗",
+      "art": "plastic-bottle",
+      "lines": [
+        "瓶中装着半口风。",
+        "像一封未寄出的信。"
+      ],
+      "flavor": "瓶中装着半口风。\n像一封未寄出的信。",
+      "flat": "flat/OG-003.png",
+      "painting": "art/plastic-bottle.jpg"
+    },
+    {
+      "id": "OG-004",
+      "no": 4,
+      "name": "塑料瓶",
+      "rarity": "传说",
+      "art": "plastic-bottle-legend",
+      "lines": [
+        "找到瓶盖的人，",
+        "就能把这截海岸",
+        "重新封上。"
+      ],
+      "flavor": "找到瓶盖的人，\n就能把这截海岸\n重新封上。",
+      "flat": "flat/OG-004.png",
+      "painting": "art/plastic-bottle-legend.jpg"
+    },
+    {
+      "id": "OG-005",
+      "no": 5,
+      "name": "塑料袋",
+      "rarity": "普通",
+      "art": "plastic-bag",
+      "lines": [
+        "它跟着浪走，",
+        "比鱼还勤。"
+      ],
+      "flavor": "它跟着浪走，\n比鱼还勤。",
+      "flat": "flat/OG-005.png",
+      "painting": "art/plastic-bag.jpg"
+    },
+    {
+      "id": "OG-006",
+      "no": 6,
+      "name": "塑料袋",
+      "rarity": "稀有",
+      "art": "plastic-bag",
+      "lines": [
+        "撑开时像一只",
+        "不会下沉的水母。"
+      ],
+      "flavor": "撑开时像一只\n不会下沉的水母。",
+      "flat": "flat/OG-006.png",
+      "painting": "art/plastic-bag.jpg"
+    },
+    {
+      "id": "OG-007",
+      "no": 7,
+      "name": "塑料袋",
+      "rarity": "史诗",
+      "art": "plastic-bag",
+      "lines": [
+        "渔民叫它白帆。",
+        "帆上没有船。"
+      ],
+      "flavor": "渔民叫它白帆。\n帆上没有船。",
+      "flat": "flat/OG-007.png",
+      "painting": "art/plastic-bag.jpg"
+    },
+    {
+      "id": "OG-008",
+      "no": 8,
+      "name": "塑料袋",
+      "rarity": "传说",
+      "art": "plastic-bag-legend",
+      "lines": [
+        "它曾罩住月亮。",
+        "月亮挣脱之后，",
+        "只留下一只把手。"
+      ],
+      "flavor": "它曾罩住月亮。\n月亮挣脱之后，\n只留下一只把手。",
+      "flat": "flat/OG-008.png",
+      "painting": "art/plastic-bag-legend.jpg"
+    },
+    {
+      "id": "OG-009",
+      "no": 9,
+      "name": "玻璃瓶",
+      "rarity": "普通",
+      "art": "glass-bottle",
+      "lines": [
+        "绿玻璃躺在潮池里，",
+        "月亮已经上来了。"
+      ],
+      "flavor": "绿玻璃躺在潮池里，\n月亮已经上来了。",
+      "flat": "flat/OG-009.png",
+      "painting": "art/glass-bottle.jpg"
+    },
+    {
+      "id": "OG-010",
+      "no": 10,
+      "name": "玻璃瓶",
+      "rarity": "稀有",
+      "art": "glass-bottle",
+      "lines": [
+        "瓶底的年份，",
+        "比灯塔更早。"
+      ],
+      "flavor": "瓶底的年份，\n比灯塔更早。",
+      "flat": "flat/OG-010.png",
+      "painting": "art/glass-bottle.jpg"
+    },
+    {
+      "id": "OG-011",
+      "no": 11,
+      "name": "玻璃瓶",
+      "rarity": "史诗",
+      "art": "glass-bottle",
+      "lines": [
+        "对着瓶口倾听，",
+        "旧航线一声，",
+        "又一声。"
+      ],
+      "flavor": "对着瓶口倾听，\n旧航线一声，\n又一声。",
+      "flat": "flat/OG-011.png",
+      "painting": "art/glass-bottle.jpg"
+    },
+    {
+      "id": "OG-012",
+      "no": 12,
+      "name": "玻璃瓶",
+      "rarity": "传说",
+      "art": "glass-bottle-legend",
+      "lines": [
+        "软木塞还在。",
+        "里面的信，",
+        "写成了盐。"
+      ],
+      "flavor": "软木塞还在。\n里面的信，\n写成了盐。",
+      "flat": "flat/OG-012.png",
+      "painting": "art/glass-bottle-legend.jpg"
+    },
+    {
+      "id": "OG-013",
+      "no": 13,
+      "name": "渔网",
+      "rarity": "普通",
+      "art": "fishing-net",
+      "lines": [
+        "网住两只拖鞋，",
+        "和一段下午。"
+      ],
+      "flavor": "网住两只拖鞋，\n和一段下午。",
+      "flat": "flat/OG-013.png",
+      "painting": "art/fishing-net.jpg"
+    },
+    {
+      "id": "OG-014",
+      "no": 14,
+      "name": "渔网",
+      "rarity": "稀有",
+      "art": "fishing-net",
+      "lines": [
+        "补过三次。",
+        "每一次都比鱼",
+        "更有耐心。"
+      ],
+      "flavor": "补过三次。\n每一次都比鱼\n更有耐心。",
+      "flat": "flat/OG-014.png",
+      "painting": "art/fishing-net.jpg"
+    },
+    {
+      "id": "OG-015",
+      "no": 15,
+      "name": "渔网",
+      "rarity": "史诗",
+      "art": "fishing-net",
+      "lines": [
+        "退潮后它还立着，",
+        "像一座没有渔夫的门。"
+      ],
+      "flavor": "退潮后它还立着，\n像一座没有渔夫的门。",
+      "flat": "flat/OG-015.png",
+      "painting": "art/fishing-net.jpg"
+    },
+    {
+      "id": "OG-016",
+      "no": 16,
+      "name": "渔网",
+      "rarity": "传说",
+      "art": "fishing-net-legend",
+      "lines": [
+        "它不再捕鱼。",
+        "鱼从网眼里游过，",
+        "向它行礼。"
+      ],
+      "flavor": "它不再捕鱼。\n鱼从网眼里游过，\n向它行礼。",
+      "flat": "flat/OG-016.png",
+      "painting": "art/fishing-net-legend.jpg"
+    },
+    {
+      "id": "OG-017",
+      "no": 17,
+      "name": "易拉罐",
+      "rarity": "普通",
+      "art": "soda-can",
+      "lines": [
+        "拉环还在。",
+        "汽早就加入了洋流。"
+      ],
+      "flavor": "拉环还在。\n汽早就加入了洋流。",
+      "flat": "flat/OG-017.png",
+      "painting": "art/soda-can.jpg"
+    },
+    {
+      "id": "OG-018",
+      "no": 18,
+      "name": "易拉罐",
+      "rarity": "稀有",
+      "art": "soda-can",
+      "lines": [
+        "红圈还亮着。",
+        "里面的汽，已经入海。"
+      ],
+      "flavor": "红圈还亮着。\n里面的汽，已经入海。",
+      "flat": "flat/OG-018.png",
+      "painting": "art/soda-can.jpg"
+    },
+    {
+      "id": "OG-019",
+      "no": 19,
+      "name": "易拉罐",
+      "rarity": "史诗",
+      "art": "soda-can",
+      "lines": [
+        "摇一摇。",
+        "里面是干了的潮声。"
+      ],
+      "flavor": "摇一摇。\n里面是干了的潮声。",
+      "flat": "flat/OG-019.png",
+      "painting": "art/soda-can.jpg"
+    },
+    {
+      "id": "OG-020",
+      "no": 20,
+      "name": "人字拖",
+      "rarity": "普通",
+      "art": "flip-flop",
+      "lines": [
+        "左脚。",
+        "右脚在下一季季风里。"
+      ],
+      "flavor": "左脚。\n右脚在下一季季风里。",
+      "flat": "flat/OG-020.png",
+      "painting": "art/flip-flop.jpg"
+    },
+    {
+      "id": "OG-021",
+      "no": 21,
+      "name": "人字拖",
+      "rarity": "稀有",
+      "art": "flip-flop",
+      "lines": [
+        "鞋底的纹路，",
+        "还记得一个人的重量。"
+      ],
+      "flavor": "鞋底的纹路，\n还记得一个人的重量。",
+      "flat": "flat/OG-021.png",
+      "painting": "art/flip-flop.jpg"
+    },
+    {
+      "id": "OG-022",
+      "no": 22,
+      "name": "人字拖",
+      "rarity": "史诗",
+      "art": "flip-flop",
+      "lines": [
+        "另一只成了蟹的屋顶。",
+        "这只负责怀念。"
+      ],
+      "flavor": "另一只成了蟹的屋顶。\n这只负责怀念。",
+      "flat": "flat/OG-022.png",
+      "painting": "art/flip-flop.jpg"
+    },
+    {
+      "id": "OG-023",
+      "no": 23,
+      "name": "渔线",
+      "rarity": "普通",
+      "art": "fishing-line",
+      "lines": [
+        "缠在礁石上，",
+        "亮得像一句没写完的话。"
+      ],
+      "flavor": "缠在礁石上，\n亮得像一句没写完的话。",
+      "flat": "flat/OG-023.png",
+      "painting": "art/fishing-line.jpg"
+    },
+    {
+      "id": "OG-024",
+      "no": 24,
+      "name": "渔线",
+      "rarity": "稀有",
+      "art": "fishing-line",
+      "lines": [
+        "另一头沉进海里，",
+        "钓着一整段沉默。"
+      ],
+      "flavor": "另一头沉进海里，\n钓着一整段沉默。",
+      "flat": "flat/OG-024.png",
+      "painting": "art/fishing-line.jpg"
+    },
+    {
+      "id": "OG-025",
+      "no": 25,
+      "name": "渔线",
+      "rarity": "史诗",
+      "art": "fishing-line",
+      "lines": [
+        "有人沿这根线走远，",
+        "走回了自己的船。"
+      ],
+      "flavor": "有人沿这根线走远，\n走回了自己的船。",
+      "flat": "flat/OG-025.png",
+      "painting": "art/fishing-line.jpg"
+    },
+    {
+      "id": "OG-026",
+      "no": 26,
+      "name": "泡沫箱",
+      "rarity": "普通",
+      "art": "foam-box",
+      "lines": [
+        "曾经装过鱼。",
+        "现在装风，也不漏。"
+      ],
+      "flavor": "曾经装过鱼。\n现在装风，也不漏。",
+      "flat": "flat/OG-026.png",
+      "painting": "art/foam-box.jpg"
+    },
+    {
+      "id": "OG-027",
+      "no": 27,
+      "name": "泡沫箱",
+      "rarity": "稀有",
+      "art": "foam-box",
+      "lines": [
+        "盖子掀着一条缝。",
+        "里面是干燥的、",
+        "不属于海的黑暗。"
+      ],
+      "flavor": "盖子掀着一条缝。\n里面是干燥的、\n不属于海的黑暗。",
+      "flat": "flat/OG-027.png",
+      "painting": "art/foam-box.jpg"
+    },
+    {
+      "id": "OG-028",
+      "no": 28,
+      "name": "泡沫箱",
+      "rarity": "史诗",
+      "art": "foam-box",
+      "lines": [
+        "它漂过三个台风，",
+        "形状还是一只箱子。"
+      ],
+      "flavor": "它漂过三个台风，\n形状还是一只箱子。",
+      "flat": "flat/OG-028.png",
+      "painting": "art/foam-box.jpg"
+    },
+    {
+      "id": "OG-029",
+      "no": 29,
+      "name": "气球",
+      "rarity": "普通",
+      "art": "balloon",
+      "lines": [
+        "瘪了。",
+        "颜色还记得生日。"
+      ],
+      "flavor": "瘪了。\n颜色还记得生日。",
+      "flat": "flat/OG-029.png",
+      "painting": "art/balloon.jpg"
+    },
+    {
+      "id": "OG-030",
+      "no": 30,
+      "name": "气球",
+      "rarity": "稀有",
+      "art": "balloon",
+      "lines": [
+        "绳子的结打得认真，",
+        "像还准备升空。"
+      ],
+      "flavor": "绳子的结打得认真，\n像还准备升空。",
+      "flat": "flat/OG-030.png",
+      "painting": "art/balloon.jpg"
+    },
+    {
+      "id": "OG-031",
+      "no": 31,
+      "name": "气球",
+      "rarity": "史诗",
+      "art": "balloon",
+      "lines": [
+        "夜潮把它托上礁石。",
+        "远远看去，",
+        "像一颗搁浅的心。"
+      ],
+      "flavor": "夜潮把它托上礁石。\n远远看去，\n像一颗搁浅的心。",
+      "flat": "flat/OG-031.png",
+      "painting": "art/balloon.jpg"
+    },
+    {
+      "id": "OG-032",
+      "no": 32,
+      "name": "轮胎",
+      "rarity": "普通",
+      "art": "tire",
+      "lines": [
+        "每座海湾都有一个，",
+        "所以它只算普通。"
+      ],
+      "flavor": "每座海湾都有一个，\n所以它只算普通。",
+      "flat": "flat/OG-032.png",
+      "painting": "art/tire.jpg"
+    },
+    {
+      "id": "OG-033",
+      "no": 33,
+      "name": "轮胎",
+      "rarity": "稀有",
+      "art": "tire",
+      "lines": [
+        "藤壶住满了外圈，",
+        "把它当成移动的岛。"
+      ],
+      "flavor": "藤壶住满了外圈，\n把它当成移动的岛。",
+      "flat": "flat/OG-033.png",
+      "painting": "art/tire.jpg"
+    },
+    {
+      "id": "OG-034",
+      "no": 34,
+      "name": "轮胎",
+      "rarity": "史诗",
+      "art": "tire",
+      "lines": [
+        "孩子们叫它船。",
+        "海同意了半个下午。"
+      ],
+      "flavor": "孩子们叫它船。\n海同意了半个下午。",
+      "flat": "flat/OG-034.png",
+      "painting": "art/tire.jpg"
+    },
+    {
+      "id": "OG-035",
+      "no": 35,
+      "name": "瓶盖",
+      "rarity": "普通",
+      "art": "bottle-cap",
+      "lines": [
+        "齿纹还锋利。",
+        "它告别的瓶子",
+        "在很远的地方。"
+      ],
+      "flavor": "齿纹还锋利。\n它告别的瓶子\n在很远的地方。",
+      "flat": "flat/OG-035.png",
+      "painting": "art/bottle-cap.jpg"
+    },
+    {
+      "id": "OG-036",
+      "no": 36,
+      "name": "瓶盖",
+      "rarity": "稀有",
+      "art": "bottle-cap",
+      "lines": [
+        "内侧的漆还亮着。",
+        "海把它擦得很认真。"
+      ],
+      "flavor": "内侧的漆还亮着。\n海把它擦得很认真。",
+      "flat": "flat/OG-036.png",
+      "painting": "art/bottle-cap.jpg"
+    },
+    {
+      "id": "OG-037",
+      "no": 37,
+      "name": "吸管",
+      "rarity": "普通",
+      "art": "straw",
+      "lines": [
+        "弯折处还保持着",
+        "喝饮料的角度。"
+      ],
+      "flavor": "弯折处还保持着\n喝饮料的角度。",
+      "flat": "flat/OG-037.png",
+      "painting": "art/straw.jpg"
+    },
+    {
+      "id": "OG-038",
+      "no": 38,
+      "name": "吸管",
+      "rarity": "稀有",
+      "art": "straw",
+      "lines": [
+        "一整根，没有断。",
+        "收藏家为此",
+        "沉默了很久。"
+      ],
+      "flavor": "一整根，没有断。\n收藏家为此\n沉默了很久。",
+      "flat": "flat/OG-038.png",
+      "painting": "art/straw.jpg"
+    },
+    {
+      "id": "OG-039",
+      "no": 39,
+      "name": "打火机",
+      "rarity": "普通",
+      "art": "lighter",
+      "lines": [
+        "打不着。",
+        "轮子还记得拇指。"
+      ],
+      "flavor": "打不着。\n轮子还记得拇指。",
+      "flat": "flat/OG-039.png",
+      "painting": "art/lighter.jpg"
+    },
+    {
+      "id": "OG-040",
+      "no": 40,
+      "name": "打火机",
+      "rarity": "稀有",
+      "art": "lighter",
+      "lines": [
+        "防风罩完好。",
+        "火没有了，",
+        "风也进不去。"
+      ],
+      "flavor": "防风罩完好。\n火没有了，\n风也进不去。",
+      "flat": "flat/OG-040.png",
+      "painting": "art/lighter.jpg"
+    },
+    {
+      "id": "OG-041",
+      "no": 41,
+      "name": "牙刷",
+      "rarity": "普通",
+      "art": "toothbrush",
+      "lines": [
+        "刷毛还翘着。",
+        "像在给沙滩刷牙。"
+      ],
+      "flavor": "刷毛还翘着。\n像在给沙滩刷牙。",
+      "flat": "flat/OG-041.png",
+      "painting": "art/toothbrush.jpg"
+    },
+    {
+      "id": "OG-042",
+      "no": 42,
+      "name": "牙刷",
+      "rarity": "稀有",
+      "art": "toothbrush",
+      "lines": [
+        "颜色新鲜得不像话。",
+        "海把它保护得太好。"
+      ],
+      "flavor": "颜色新鲜得不像话。\n海把它保护得太好。",
+      "flat": "flat/OG-042.png",
+      "painting": "art/toothbrush.jpg"
+    },
+    {
+      "id": "OG-043",
+      "no": 43,
+      "name": "口罩",
+      "rarity": "普通",
+      "art": "mask",
+      "lines": [
+        "耳绳还打着结。",
+        "主人先一步走了。"
+      ],
+      "flavor": "耳绳还打着结。\n主人先一步走了。",
+      "flat": "flat/OG-043.png",
+      "painting": "art/mask.jpg"
+    },
+    {
+      "id": "OG-044",
+      "no": 44,
+      "name": "口罩",
+      "rarity": "稀有",
+      "art": "mask",
+      "lines": [
+        "折叠得很整齐，",
+        "像一枚认真穿过的壳。"
+      ],
+      "flavor": "折叠得很整齐，\n像一枚认真穿过的壳。",
+      "flat": "flat/OG-044.png",
+      "painting": "art/mask.jpg"
+    },
+    {
+      "id": "OG-045",
+      "no": 45,
+      "name": "烟蒂",
+      "rarity": "普通",
+      "art": "cigarette",
+      "lines": [
+        "它立在潮线边上。",
+        "火已经灭了。"
+      ],
+      "flavor": "它立在潮线边上。\n火已经灭了。",
+      "flat": "flat/OG-045.png",
+      "painting": "art/cigarette.jpg"
+    },
+    {
+      "id": "OG-046",
+      "no": 46,
+      "name": "烟蒂",
+      "rarity": "稀有",
+      "art": "cigarette",
+      "lines": [
+        "海盐爬上了滤嘴。",
+        "火是很久以前的事。"
+      ],
+      "flavor": "海盐爬上了滤嘴。\n火是很久以前的事。",
+      "flat": "flat/OG-046.png",
+      "painting": "art/cigarette.jpg"
+    },
+    {
+      "id": "OG-047",
+      "no": 47,
+      "name": "外卖盒",
+      "rarity": "普通",
+      "art": "takeout-box",
+      "lines": [
+        "扣盖还响。",
+        "菜喂过整条海岸线。"
+      ],
+      "flavor": "扣盖还响。\n菜喂过整条海岸线。",
+      "flat": "flat/OG-047.png",
+      "painting": "art/takeout-box.jpg"
+    },
+    {
+      "id": "OG-048",
+      "no": 48,
+      "name": "外卖盒",
+      "rarity": "稀有",
+      "art": "takeout-box",
+      "lines": [
+        "盒底印着一条街。",
+        "那条街离海很远。"
+      ],
+      "flavor": "盒底印着一条街。\n那条街离海很远。",
+      "flat": "flat/OG-048.png",
+      "painting": "art/takeout-box.jpg"
+    },
+    {
+      "id": "OG-049",
+      "no": 49,
+      "name": "罐环",
+      "rarity": "普通",
+      "art": "six-pack-ring",
+      "lines": [
+        "罐子都走了。",
+        "环还圈着空气。"
+      ],
+      "flavor": "罐子都走了。\n环还圈着空气。",
+      "flat": "flat/OG-049.png",
+      "painting": "art/six-pack-ring.jpg"
+    },
+    {
+      "id": "OG-050",
+      "no": 50,
+      "name": "罐环",
+      "rarity": "稀有",
+      "art": "six-pack-ring",
+      "lines": [
+        "小蟹从环旁经过，",
+        "头也不回。"
+      ],
+      "flavor": "小蟹从环旁经过，\n头也不回。",
+      "flat": "flat/OG-050.png",
+      "painting": "art/six-pack-ring.jpg"
+    }
+  ],
+  "paintings": [
+    {
+      "id": "plastic-bottle",
+      "name": "塑料瓶",
+      "caption": "半埋在晚潮里，蓝盖还拧着，旁边一只寄居蟹。",
+      "file": "art/plastic-bottle.jpg",
+      "rarities": [
+        "普通",
+        "稀有",
+        "史诗"
+      ]
+    },
+    {
+      "id": "plastic-bottle-legend",
+      "name": "塑料瓶",
+      "caption": "瓶子立在礁石上，螃蟹围成一小圈。",
+      "file": "art/plastic-bottle-legend.jpg",
+      "rarities": [
+        "传说"
+      ]
+    },
+    {
+      "id": "plastic-bag",
+      "name": "塑料袋",
+      "caption": "涨满风的白袋子，浮在金色的水面上。",
+      "file": "art/plastic-bag.jpg",
+      "rarities": [
+        "普通",
+        "稀有",
+        "史诗"
+      ]
+    },
+    {
+      "id": "plastic-bag-legend",
+      "name": "塑料袋",
+      "caption": "袋子升到月亮前面，两只把手还举着。",
+      "file": "art/plastic-bag-legend.jpg",
+      "rarities": [
+        "传说"
+      ]
+    },
+    {
+      "id": "glass-bottle",
+      "name": "玻璃瓶",
+      "caption": "潮池里的绿玻璃瓶，软木塞还在。",
+      "file": "art/glass-bottle.jpg",
+      "rarities": [
+        "普通",
+        "稀有",
+        "史诗"
+      ]
+    },
+    {
+      "id": "glass-bottle-legend",
+      "name": "玻璃瓶",
+      "caption": "瓶身自己发亮，盐结在玻璃外面。",
+      "file": "art/glass-bottle-legend.jpg",
+      "rarities": [
+        "传说"
+      ]
+    },
+    {
+      "id": "fishing-net",
+      "name": "渔网",
+      "caption": "旧网挂在黑礁上，像一扇没有门板的门。",
+      "file": "art/fishing-net.jpg",
+      "rarities": [
+        "普通",
+        "稀有",
+        "史诗"
+      ]
+    },
+    {
+      "id": "fishing-net-legend",
+      "name": "渔网",
+      "caption": "网拉在两座海蚀柱之间，鱼从网眼里过。",
+      "file": "art/fishing-net-legend.jpg",
+      "rarities": [
+        "传说"
+      ]
+    },
+    {
+      "id": "soda-can",
+      "name": "易拉罐",
+      "caption": "站在浪沫里的银罐子，腰上一条红。",
+      "file": "art/soda-can.jpg",
+      "rarities": [
+        "普通",
+        "稀有",
+        "史诗"
+      ]
+    },
+    {
+      "id": "flip-flop",
+      "name": "人字拖",
+      "caption": "落在湿沙上的一只蓝拖，另一只不在。",
+      "file": "art/flip-flop.jpg",
+      "rarities": [
+        "普通",
+        "稀有",
+        "史诗"
+      ]
+    },
+    {
+      "id": "fishing-line",
+      "name": "渔线",
+      "caption": "一根亮线缠在藤壶礁上，延伸进海里。",
+      "file": "art/fishing-line.jpg",
+      "rarities": [
+        "普通",
+        "稀有",
+        "史诗"
+      ]
+    },
+    {
+      "id": "foam-box",
+      "name": "泡沫箱",
+      "caption": "白泡沫箱搁在风暴后的沙滩上，盖子掀着一条缝。",
+      "file": "art/foam-box.jpg",
+      "rarities": [
+        "普通",
+        "稀有",
+        "史诗"
+      ]
+    },
+    {
+      "id": "balloon",
+      "name": "气球",
+      "caption": "一只心形红气球瘪在黑礁上，结还系着，绳子垂下来。",
+      "file": "art/balloon.jpg",
+      "rarities": [
+        "普通",
+        "稀有",
+        "史诗"
+      ]
+    },
+    {
+      "id": "tire",
+      "name": "轮胎",
+      "caption": "一只旧轮胎卡在峡湾里，外圈住满藤壶。",
+      "file": "art/tire.jpg",
+      "rarities": [
+        "普通",
+        "稀有",
+        "史诗"
+      ]
+    },
+    {
+      "id": "bottle-cap",
+      "name": "瓶盖",
+      "caption": "一枚没有字的铁盖，齿纹朝下，旁边一滴水。",
+      "file": "art/bottle-cap.jpg",
+      "rarities": [
+        "普通",
+        "稀有"
+      ]
+    },
+    {
+      "id": "straw",
+      "name": "吸管",
+      "caption": "弯吸管插在沙里，还保持着喝的角度。",
+      "file": "art/straw.jpg",
+      "rarities": [
+        "普通",
+        "稀有"
+      ]
+    },
+    {
+      "id": "lighter",
+      "name": "打火机",
+      "caption": "橘红色打火机立在黑卵石上，轮子还在。",
+      "file": "art/lighter.jpg",
+      "rarities": [
+        "普通",
+        "稀有"
+      ]
+    },
+    {
+      "id": "toothbrush",
+      "name": "牙刷",
+      "caption": "黄牙刷半截埋在沙里，刷毛朝向海。",
+      "file": "art/toothbrush.jpg",
+      "rarities": [
+        "普通",
+        "稀有"
+      ]
+    },
+    {
+      "id": "mask",
+      "name": "口罩",
+      "caption": "浅蓝口罩和海藻缠在一起，耳绳还在。",
+      "file": "art/mask.jpg",
+      "rarities": [
+        "普通",
+        "稀有"
+      ]
+    },
+    {
+      "id": "cigarette",
+      "name": "烟蒂",
+      "caption": "一支灭了的烟立在潮线边上，滤嘴埋进沙里。",
+      "file": "art/cigarette.jpg",
+      "rarities": [
+        "普通",
+        "稀有"
+      ]
+    },
+    {
+      "id": "takeout-box",
+      "name": "外卖盒",
+      "caption": "扣紧的白色外卖盒，盒面上没有字。",
+      "file": "art/takeout-box.jpg",
+      "rarities": [
+        "普通",
+        "稀有"
+      ]
+    },
+    {
+      "id": "six-pack-ring",
+      "name": "罐环",
+      "caption": "一排连着的圆塑料环躺在沙上，旁边一只蟹。",
+      "file": "art/six-pack-ring.jpg",
+      "rarities": [
+        "普通",
+        "稀有"
+      ]
+    }
+  ],
+  "cardBack": {
+    "id": "tide-1-back",
+    "name": "退潮",
+    "wave": 1,
+    "file": "back/tide-1.png",
+    "painting": "art/card-back.jpg",
+    "note": "整套共用这一张卡背，背面不区分稀有度。"
+  }
+}

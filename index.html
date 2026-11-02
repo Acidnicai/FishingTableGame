@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>工位</title>
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    document.documentElement.dataset.theme =
+      matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  </script>
+</head>
+<body>
+  <div class="widget" id="widget">
+    <header id="drag">
+      <canvas id="logo" width="16" height="16" aria-hidden="true"></canvas>
+      <div class="brand">
+        <div class="title">工位</div>
+        <div class="sub" id="sub">日程</div>
+      </div>
+      <div class="purse" id="purse">0 金</div>
+      <button type="button" id="btn-pack" title="背包">包</button>
+      <div class="winbtns">
+        <button type="button" id="btn-top" class="on" title="浮在别的窗口上面">顶</button>
+        <button type="button" id="btn-mini" title="收成小钟">–</button>
+        <button type="button" id="btn-close" title="关掉">×</button>
+      </div>
+    </header>
+
+    <nav class="tabs" id="tabs">
+      <button type="button" data-tab="cal" class="on">日历</button>
+      <button type="button" data-tab="week">本周</button>
+      <button type="button" data-tab="play" id="tab-play">小组件</button>
+      <button type="button" data-tab="tool">工具</button>
+    </nav>
+    <div class="play-tabs" id="play-tabs" hidden>
+      <button type="button" data-play="farm">耕地</button>
+      <button type="button" data-play="fish">鱼塘</button>
+      <button type="button" data-play="dino">恐龙</button>
+    </div>
+
+    <div class="views">
+      <section class="view on" id="view-cal">
+        <div class="cal-bar">
+          <button type="button" id="cal-prev" aria-label="上个月">&lt;</button>
+          <div id="cal-title">—</div>
+          <button type="button" id="cal-next" aria-label="下个月">&gt;</button>
+        </div>
+        <div class="cal-weekdays" id="cal-weekdays"></div>
+        <div class="cal-grid" id="cal-grid"></div>
+        <div class="note-box">
+          <div id="note-label">今天</div>
+          <input id="note-input" type="text" maxlength="40" placeholder="写一句今天的事" />
+        </div>
+      </section>
+
+      <section class="view" id="view-week">
+        <div class="week-bar">
+          <button type="button" id="week-prev" aria-label="上一周">&lt;</button>
+          <div id="week-title">本周</div>
+          <button type="button" id="week-next" aria-label="下一周">&gt;</button>
+        </div>
+        <div class="week-list" id="week-list"></div>
+      </section>
+
+      <section class="view" id="view-farm">
+        <div class="farm-top">
+          <div id="farm-gold">0 金</div>
+          <div id="farm-season">春</div>
+        </div>
+        <div class="farm-tools" id="farm-tools">
+          <button type="button" data-tool="hoe" class="on slot"><canvas width="16" height="16" data-ico="hoe"></canvas><span>1 锄</span></button>
+          <button type="button" data-tool="water" class="slot"><canvas width="16" height="16" data-ico="water"></canvas><span>2 壶</span></button>
+          <button type="button" data-tool="harvest" class="slot"><canvas width="16" height="16" data-ico="harvest"></canvas><span>3 收</span></button>
+          <button type="button" data-tool="shovel" class="slot"><canvas width="16" height="16" data-ico="shovel"></canvas><span>4 铲</span></button>
+        </div>
+        <div class="farm-frame"><canvas id="farm" width="144" height="144"></canvas></div>
+        <p class="hint" id="farm-hint">1 锄、2 壶、3 收、4 铲。空格对脚下使用，R 对整块田使用。Q、E 换种子。B 打开背包。WASD 移动，Shift+W、Shift+S 缩放。</p>
+      </section>
+
+      <section class="view" id="view-fish">
+        <div class="scenes" id="scenes"></div>
+        <div class="pond-frame" id="frame">
+          <canvas id="pond"></canvas>
+          <div class="bite-flag" id="bite-flag">咬钩了</div>
+        </div>
+        <p class="hint" id="hint">水面很静。想钓的时候，抛一下竿。</p>
+        <button type="button" class="action" id="action">抛竿</button>
+        <div class="row">
+          <button type="button" id="btn-book">鱼册</button>
+          <button type="button" id="btn-auto" title="错过或收起之后，自动再抛">连钓</button>
+          <button type="button" id="btn-sound" class="on">水声</button>
+          <span class="dex" id="dex">0/0</span>
+        </div>
+        <div class="book" id="book"></div>
+        <section class="card" id="card">
+          <canvas id="portrait" width="180" height="104"></canvas>
+          <div class="fresh" id="card-fresh" hidden>新收录</div>
+          <div class="rarity" id="card-rarity"></div>
+          <h2 id="card-name"></h2>
+          <p class="meta" id="card-meta"></p>
+          <p class="line" id="card-line"></p>
+          <button type="button" class="action" id="card-ok">放进鱼篓</button>
+        </section>
+      </section>
+
+      <section class="view" id="view-dino">
+        <div class="dino-top">
+          <span id="dino-score">0</span>
+          <span id="dino-best">最好 0</span>
+        </div>
+        <div class="dino-frame"><canvas id="dino" width="400" height="180"></canvas></div>
+        <p class="hint" id="dino-hint">点一下，或按空格跳。下键低头。路上的金币捡到就入账，撞上再按分数结一笔。</p>
+      </section>
+
+      <section class="view" id="view-tool">
+        <div class="tool-grid">
+          <article class="tool wide">
+            <div class="tool-k">下班倒计时</div>
+            <div class="clock" id="clock">--:--:--</div>
+            <div class="time-row">
+              <label>上班 <input id="work-start" type="time" value="09:00" /></label>
+              <label>下班 <input id="work-end" type="time" value="18:00" /></label>
+            </div>
+          </article>
+          <article class="tool wide">
+            <div class="tool-k">今日进度</div>
+            <div class="bar"><div id="work-bar"></div></div>
+            <div class="tool-s" id="work-label">还没开始</div>
+          </article>
+          <article class="tool">
+            <div class="tool-k">喝水</div>
+            <div class="drops" id="drops"></div>
+            <div class="tool-s" id="water-count">还没喝</div>
+            <button type="button" id="water-add">喝一口</button>
+          </article>
+          <article class="tool">
+            <div class="tool-k">伸懒腰</div>
+            <div class="tool-s" id="stretch-tip">看远处二十秒</div>
+            <button type="button" id="stretch">开始</button>
+          </article>
+          <article class="tool wide" id="pack-box">
+            <div class="tool-k">第一弹 · 退潮</div>
+            <div class="pack-row">
+              <button type="button" id="pack-buy">买一包 · 80金</button>
+              <button type="button" id="pack-album">图鉴</button>
+              <span id="pack-owned">0/50</span>
+            </div>
+            <p class="hint" id="pack-hint">一包五张。点开是立体大图，可以拖着转。史诗和传说另有阔画。没有保底。</p>
+            <div id="pack-stage"></div>
+          </article>
+          <article class="tool">
+            <div class="tool-k">周末</div>
+            <div class="tool-s" id="weekend">—</div>
+          </article>
+          <article class="tool">
+            <div class="tool-k">淡一点</div>
+            <input id="opacity" type="range" min="55" max="100" value="100" />
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <div class="toast" id="toast" hidden>
+      <span id="toast-text">咬钩了</span>
+      <button type="button" id="toast-act">提竿</button>
+    </div>
+
+    <div id="inspect" hidden>
+      <div class="inspect-bar">
+        <button type="button" id="inspect-rot">旋转</button>
+        <button type="button" id="inspect-close">关闭</button>
+      </div>
+      <div id="inspect-frame">
+        <div id="inspect-card">
+          <div id="inspect-back"><img id="inspect-back-img" alt="" hidden><span id="inspect-back-label">工位</span></div>
+          <div id="inspect-front">
+            <img id="inspect-img" alt="" draggable="false">
+            <div id="inspect-shine"></div>
+            <div id="inspect-foil" hidden></div>
+            <div id="inspect-lock" hidden>未解锁画面</div>
+          </div>
+        </div>
+      </div>
+      <div id="inspect-copy"></div>
+    </div>
+
+    <div id="pack" hidden>
+      <div class="pack-bar">
+        <span>背包</span>
+        <button type="button" id="pack-close">关闭</button>
+      </div>
+      <div id="pack-body"></div>
+    </div>
+
+    <button type="button" class="floater" id="floater">
+      <canvas id="sign" width="16" height="16" aria-hidden="true"></canvas>
+      <span class="sign-copy">
+        <span id="floater-k">下班</span>
+        <span id="floater-t">--:--</span>
+      </span>
+    </button>
+  </div>
+  <script src="fishphotos.js"></script>
+  <script src="extrafish.js"></script>
+  <script src="sprites.js"></script>
+  <script src="pond.js"></script>
+  <script src="farm.js"></script>
+  <script src="cards/tide-1/set.js"></script>
+  <script src="cards.js"></script>
+  <script src="dino.js"></script>
+  <script src="desk.js"></script>
+</body>
+</html>

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第一弹 · 退潮</title>
+  <style>
+    :root {
+      --bg: #141816;
+      --ink: #f3ecdf;
+      --muted: #b7ad9d;
+      --line: #343b36;
+      --paper: #221e19;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Microsoft YaHei", "SimHei", sans-serif;
+    }
+    header, main { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+    header { padding: 36px 0 8px; }
+    h1 { margin: 0 0 8px; font-size: 32px; font-weight: 700; letter-spacing: 0.08em; }
+    .lead { margin: 0; max-width: 68ch; color: var(--muted); line-height: 1.7; }
+    .stats { display: flex; flex-wrap: wrap; gap: 10px 18px; margin: 18px 0; color: var(--ink); }
+    .stats b { font-weight: 700; }
+    .common { color: #d9d0c2; }
+    .rare { color: #7ec4f5; }
+    .epic { color: #d2a4f3; }
+    .legend { color: #ffc45a; }
+    .bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 8px 0 22px; }
+    button, .tab {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 14px;
+      font: inherit;
+      cursor: pointer;
+    }
+    button[aria-pressed="true"], .tab[aria-pressed="true"] { background: var(--ink); color: #1a1612; }
+    .count { margin-left: auto; color: var(--muted); }
+    h2 { display: flex; justify-content: space-between; align-items: baseline; font-size: 20px; margin: 28px 0 12px; }
+    h2 span { color: var(--muted); font-size: 14px; font-weight: 400; }
+    .row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .card { padding: 0; border: 0; border-radius: 8px; background: transparent; }
+    .card img { width: 100%; display: block; border-radius: 8px; }
+    .wides { display: grid; gap: 28px; }
+    .wides[hidden], .back-view[hidden] { display: none; }
+    .wide { margin: 0; background: var(--paper); border-radius: 12px; overflow: hidden; }
+    .wide img { width: 100%; display: block; }
+    figcaption { display: grid; gap: 4px; padding: 14px 16px 16px; }
+    figcaption strong { font-size: 18px; }
+    figcaption em { font-style: normal; color: var(--legend); }
+    figcaption span { color: var(--muted); }
+    dialog { width: min(1040px, calc(100% - 24px)); max-height: calc(100vh - 32px); overflow: auto; border: 0; border-radius: 16px; background: #1c1915; color: var(--ink); padding: 18px; }
+    dialog::backdrop { background: rgba(0, 0, 0, 0.72); }
+    .detail { display: grid; grid-template-columns: minmax(180px, 280px) 1fr; gap: 18px; align-items: start; }
+    #flatImg { width: 100%; max-height: 78vh; object-fit: contain; border-radius: 10px; }
+    #wideImg { width: 100%; max-height: 42vh; object-fit: cover; object-position: center 40%; border-radius: 10px; }
+    .detail h3 { margin: 0 0 6px; font-size: 28px; }
+    .meta { margin: 0 0 12px; color: var(--legend); }
+    .flavor { margin: 0; font-family: KaiTi, STKaiti, serif; font-size: 24px; line-height: 1.6; }
+    .close { margin-top: 16px; }
+    .back-view { display: grid; grid-template-columns: repeat(2, minmax(180px, 320px)); gap: 28px; justify-content: center; margin: 8px 0 40px; }
+    .back-view figure { margin: 0; }
+    .back-view img { width: 100%; display: block; border-radius: 10px; }
+    .back-view figcaption { margin-top: 10px; text-align: center; color: var(--muted); }
+    .back-note { grid-column: 1 / -1; margin: 0; text-align: center; color: var(--muted); line-height: 1.7; }
+    @media (max-width: 800px) {
+      .row { grid-template-columns: repeat(2, 1fr); }
+      .detail { grid-template-columns: 1fr; }
+      .count { margin-left: 0; width: 100%; }
+      .back-view { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>第一弹 · 退潮</h1>
+    <p class="lead">海洋垃圾收藏册。这些卡不是对战随从，册子里只收图像和趣味文字。同名的卡按稀有度分开计算，这一弹共 50 张。横幅是阔画，竖卡是放进收藏册的平卡。</p>
+    <div class="stats">
+      <span class="common">普通 <b>18</b></span>
+      <span class="rare">稀有 <b>18</b></span>
+      <span class="epic">史诗 <b>10</b></span>
+      <span class="legend">传说 <b>4</b></span>
+      <span>阔画 <b>22</b></span>
+    </div>
+    <div class="bar">
+      <button class="tab" type="button" id="showFlat" aria-pressed="true">平卡</button>
+      <button class="tab" type="button" id="showWide" aria-pressed="false">阔画</button>
+      <button class="tab" type="button" id="showBack" aria-pressed="false">卡背</button>
+      <button type="button" data-filter="全部" aria-pressed="true">全部</button>
+      <button type="button" data-filter="普通">普通</button>
+      <button type="button" data-filter="稀有">稀有</button>
+      <button type="button" data-filter="史诗">史诗</button>
+      <button type="button" data-filter="传说">传说</button>
+      <span class="count" id="count"></span>
+    </div>
+  </header>
+  <main>
+    <div id="flatView"><section class="group" data-name="塑料瓶">
+        <h2>塑料瓶<span>4 张</span></h2>
+        <div class="row"><button class="card" type="button" data-rarity="普通" data-id="OG-001">
+            <img src="flat/OG-001.png" alt="塑料瓶，普通">
+          </button><button class="card" type="button" data-rarity="稀有" data-id="OG-002">
+            <img src="flat/OG-002.png" alt="塑料瓶，稀有">
+          </button><button class="card" type="button" data-rarity="史诗" data-id="OG-003">
+            <img src="flat/OG-003.png" alt="塑料瓶，史诗">
+          </button><button class="card" type="button" data-rarity="传说" data-id="OG-004">
+            <img src="flat/OG-004.png" alt="塑料瓶，传说">
+          </button></div>
+      </section><section class="group" data-name="塑料袋">
+        <h2>塑料袋<span>4 张</span></h2>
+        <div class="row"><button class="card" type="button" data-rarity="普通" data-id="OG-005">
+            <img src="flat/OG-005.png" alt="塑料袋，普通">
+          </button><button class="card" type="button" data-rarity="稀有" data-id="OG-006">
+            <img src="flat/OG-006.png" alt="塑料袋，稀有">
+          </button><button class="card" type="button" data-rarity="史诗" data-id="OG-007">
+            <img src="flat/OG-007.png" alt="塑料袋，史诗">
+          </button><button class="card" type="button" data-rarity="传说" data-id="OG-008">
+            <img src="flat/OG-008.png" alt="塑料袋，传说">
+          </button></div>
+      </section><section class="group" data-name="玻璃瓶">
+        <h2>玻璃瓶<span>4 张</span></h2>
+        <div class="row"><button class="card" type="button" data-rarity="普通" data-id="OG-009">
+            <img src="flat/OG-009.png" alt="玻璃瓶，普通">
+          </button><button class="card" type="button" data-rarity="稀有" data-id="OG-010">
+            <img src="flat/OG-010.png" alt="玻璃瓶，稀有">
+          </button><button class="card" type="button" data-rarity="史诗" data-id="OG-011">
+            <img src="flat/OG-011.png" alt="玻璃瓶，史诗">
+          </button><button class="card" type="button" data-rarity="传说" data-id="OG-012">
+            <img src="flat/OG-012.png" alt="玻璃瓶，传说">
+          </button></div>
+      </section><section class="group" data-name="渔网">
+        <h2>渔网<span>4 张</span></h2>
+        <div class="row"><button class="card" type="button" data-rarity="普通" data-id="OG-013">
+            <img src="flat/OG-013.png" alt="渔网，普通">
+          </button><button class="card" type="button" data-rarity="稀有" data-id="OG-014">
+            <img src="flat/OG-014.png" alt="渔网，稀有">
+          </button><button class="card" type="button" data-rarity="史诗" data-id="OG-015">
+            <img src="flat/OG-015.png" alt="渔网，史诗">
+          </button><button class="card" type="button" data-rarity="传说" data-id="OG-016">
+            <img src="flat/OG-016.png" alt="渔网，传说">
+          </button></div>
+      </section><section class="group" data-name="易拉罐">
+        <h2>易拉罐<span>3 张</span></h2>
+        <div class="row"><button class="card" type="button" data-rarity="普通" data-id="OG-017">
+            <img src="flat/OG-017.png" alt="易拉罐，普通">
+          </button><button class="card" type="button" data-rarity="稀有" data-id="OG-018">
+            <img src="flat/OG-018.png" alt="易拉罐，稀有">
+          </button><button class="card" type="button" data-rarity="史诗" data-id="OG-019">
+            <img src="flat/OG-019.png" alt="易拉罐，史诗">
+          </button></div>
+      </section><section class="group" data-name="人字拖">
+        <h2>人字拖<span>3 张</span></h2>
+        <div class="row"><button class="card" type="button" data-rarity="普通" data-id="OG-020">
+            <img src="flat/OG-020.png" alt="人字拖，普通">
+          </button><button class="card" type="button" data-rarity="稀有" data-id="OG-021">
+            <img src="flat/OG-021.png" alt="人字拖，稀有">
+          </button><button class="card" type="button" data-rarity="史诗" data-id="OG-022">
+            <img src="flat/OG-022.png" alt="人字拖，史诗">
+          </button></div>
+      </section><section class="group" data-name="渔线">
+        <h2>渔线<span>3 张</span></h2>
+        <div class="row"><button class="card" type="button" data-rarity="普通" data-id="OG-023">
+            <img src="flat/OG-023.png" alt="渔线，普通">
+          </button><button class="card" type="button" data-rarity="稀有" data-id="OG-024">
+            <img src="flat/OG-024.png" alt="渔线，稀有">
+          </button><button class="card" type="button" data-rarity="史诗" data-id="OG-025">
+            <img src="flat/OG-025.png" alt="渔线，史诗">
+          </button></div>
+      </section><section class="group" data-name="泡沫箱">
+        <h2>泡沫箱<span>3 张</span></h2>
+        <div class="row"><button class="card" type="button" data-rarity="普通" data-id="OG-026">
+            <img src="flat/OG-026.png" alt="泡沫箱，普通">
+          </button><button class="card" type="button" data-rarity="稀有" data-id="OG-027">
+            <img src="flat/OG-027.png" alt="泡沫箱，稀有">
+          </button><button class="card" type="button" data-rarity="史诗" data-id="OG-028">
+            <img src="flat/OG-028.png" alt="泡沫箱，史诗">
+          </button></div>
+      </section><section class="group" data-name="气球">
+        <h2>气球<span>3 张</span></h2>
+        <div class="row"><button class="card" type="button" data-rarity="普通" data-id="OG-029">
+            <img src="flat/OG-029.png" alt="气球，普通">
+          </button><button class="card" type="button" data-rarity="稀有" data-id="OG-030">
+            <img src="flat/OG-030.png" alt="气球，稀有">
+          </button><button class="card" type="button" data-rarity="史诗" data-id="OG-031">
+            <img src="flat/OG-031.png" alt="气球，史诗">
+          </button></div>
+      </section><section class="group" data-name="轮胎">
+        <h2>轮胎<span>3 张</span></h2>
+        <div class="row"><button class="card" type="button" data-rarity="普通" data-id="OG-032">
+            <img src="flat/OG-032.png" alt="轮胎，普通">
+          </button><button class="card" type="button" data-rarity="稀有" data-id="OG-033">
+            <img src="flat/OG-033.png" alt="轮胎，稀有">
+          </button><button class="card" type="button" data-rarity="史诗" data-id="OG-034">
+            <img src="flat/OG-034.png" alt="轮胎，史诗">
+          </button></div>
+      </section><section class="group" data-name="瓶盖">
+        <h2>瓶盖<span>2 张</span></h2>
+        <div class="row"><button class="card" type="button" data-rarity="普通" data-id="OG-035">
+            <img src="flat/OG-035.png" alt="瓶盖，普通">
+          </button><button class="card" type="button" data-rarity="稀有" data-id="OG-036">
+            <img src="flat/OG-036.png" alt="瓶盖，稀有">
+          </button></div>
+      </section><section class="group" data-name="吸管">
+        <h2>吸管<span>2 张</span></h2>
+        <div class="row"><button class="card" type="button" data-rarity="普通" data-id="OG-037">
+            <img src="flat/OG-037.png" alt="吸管，普通">
+          </button><button class="card" type="button" data-rarity="稀有" data-id="OG-038">
+            <img src="flat/OG-038.png" alt="吸管，稀有">
+          </button></div>
+      </section><section class="group" data-name="打火机">
+        <h2>打火机<span>2 张</span></h2>
+        <div class="row"><button class="card" type="button" data-rarity="普通" data-id="OG-039">
+            <img src="flat/OG-039.png" alt="打火机，普通">
+          </button><button class="card" type="button" data-rarity="稀有" data-id="OG-040">
+            <img src="flat/OG-040.png" alt="打火机，稀有">
+          </button></div>
+      </section><section class="group" data-name="牙刷">
+        <h2>牙刷<span>2 张</span></h2>
+        <div class="row"><button class="card" type="button" data-rarity="普通" data-id="OG-041">
+            <img src="flat/OG-041.png" alt="牙刷，普通">
+          </button><button class="card" type="button" data-rarity="稀有" data-id="OG-042">
+            <img src="flat/OG-042.png" alt="牙刷，稀有">
+          </button></div>
+      </section><section class="group" data-name="口罩">
+        <h2>口罩<span>2 张</span></h2>
+        <div class="row"><button class="card" type="button" data-rarity="普通" data-id="OG-043">
+            <img src="flat/OG-043.png" alt="口罩，普通">
+          </button><button class="card" type="button" data-rarity="稀有" data-id="OG-044">
+            <img src="flat/OG-044.png" alt="口罩，稀有">
+          </button></div>
+      </section><section class="group" data-name="烟蒂">
+        <h2>烟蒂<span>2 张</span></h2>
+        <div class="row"><button class="card" type="button" data-rarity="普通" data-id="OG-045">
+            <img src="flat/OG-045.png" alt="烟蒂，普通">
+          </button><button class="card" type="button" data-rarity="稀有" data-id="OG-046">
+            <img src="flat/OG-046.png" alt="烟蒂，稀有">
+          </button></div>
+      </section><section class="group" data-name="外卖盒">
+        <h2>外卖盒<span>2 张</span></h2>
+        <div class="row"><button class="card" type="button" data-rarity="普通" data-id="OG-047">
+            <img src="flat/OG-047.png" alt="外卖盒，普通">
+          </button><button class="card" type="button" data-rarity="稀有" data-id="OG-048">
+            <img src="flat/OG-048.png" alt="外卖盒，稀有">
+          </button></div>
+      </section><section class="group" data-name="罐环">
+        <h2>罐环<span>2 张</span></h2>
+        <div class="row"><button class="card" type="button" data-rarity="普通" data-id="OG-049">
+            <img src="flat/OG-049.png" alt="罐环，普通">
+          </button><button class="card" type="button" data-rarity="稀有" data-id="OG-050">
+            <img src="flat/OG-050.png" alt="罐环，稀有">
+          </button></div>
+      </section></div>
+    <div id="wideView" class="wides" hidden><figure class="wide" data-rarities="普通 稀有 史诗">
+        <img src="art/plastic-bottle.jpg" alt="塑料瓶的阔画">
+        <figcaption>
+          <strong>塑料瓶</strong>
+          <em>普通 · 稀有 · 史诗</em>
+          <span>半埋在晚潮里，蓝盖还拧着，旁边一只寄居蟹。</span>
+        </figcaption>
+      </figure><figure class="wide" data-rarities="传说">
+        <img src="art/plastic-bottle-legend.jpg" alt="塑料瓶的阔画">
+        <figcaption>
+          <strong>塑料瓶</strong>
+          <em>传说</em>
+          <span>瓶子立在礁石上，螃蟹围成一小圈。</span>
+        </figcaption>
+      </figure><figure class="wide" data-rarities="普通 稀有 史诗">
+        <img src="art/plastic-bag.jpg" alt="塑料袋的阔画">
+        <figcaption>
+          <strong>塑料袋</strong>
+          <em>普通 · 稀有 · 史诗</em>
+          <span>涨满风的白袋子，浮在金色的水面上。</span>
+        </figcaption>
+      </figure><figure class="wide" data-rarities="传说">
+        <img src="art/plastic-bag-legend.jpg" alt="塑料袋的阔画">
+        <figcaption>
+          <strong>塑料袋</strong>
+          <em>传说</em>
+          <span>袋子升到月亮前面，两只把手还举着。</span>
+        </figcaption>
+      </figure><figure class="wide" data-rarities="普通 稀有 史诗">
+        <img src="art/glass-bottle.jpg" alt="玻璃瓶的阔画">
+        <figcaption>
+          <strong>玻璃瓶</strong>
+          <em>普通 · 稀有 · 史诗</em>
+          <span>潮池里的绿玻璃瓶，软木塞还在。</span>
+        </figcaption>
+      </figure><figure class="wide" data-rarities="传说">
+        <img src="art/glass-bottle-legend.jpg" alt="玻璃瓶的阔画">
+        <figcaption>
+          <strong>玻璃瓶</strong>
+          <em>传说</em>
+          <span>瓶身自己发亮，盐结在玻璃外面。</span>
+        </figcaption>
+      </figure><figure class="wide" data-rarities="普通 稀有 史诗">
+        <img src="art/fishing-net.jpg" alt="渔网的阔画">
+        <figcaption>
+          <strong>渔网</strong>
+          <em>普通 · 稀有 · 史诗</em>
+          <span>旧网挂在黑礁上，像一扇没有门板的门。</span>
+        </figcaption>
+      </figure><figure class="wide" data-rarities="传说">
+        <img src="art/fishing-net-legend.jpg" alt="渔网的阔画">
+        <figcaption>
+          <strong>渔网</strong>
+          <em>传说</em>
+          <span>网拉在两座海蚀柱之间，鱼从网眼里过。</span>
+        </figcaption>
+      </figure><figure class="wide" data-rarities="普通 稀有 史诗">
+        <img src="art/soda-can.jpg" alt="易拉罐的阔画">
+        <figcaption>
+          <strong>易拉罐</strong>
+          <em>普通 · 稀有 · 史诗</em>
+          <span>站在浪沫里的银罐子，腰上一条红。</span>
+        </figcaption>
+      </figure><figure class="wide" data-rarities="普通 稀有 史诗">
+        <img src="art/flip-flop.jpg" alt="人字拖的阔画">
+        <figcaption>
+          <strong>人字拖</strong>
+          <em>普通 · 稀有 · 史诗</em>
+          <span>落在湿沙上的一只蓝拖，另一只不在。</span>
+        </figcaption>
+      </figure><figure class="wide" data-rarities="普通 稀有 史诗">
+        <img src="art/fishing-line.jpg" alt="渔线的阔画">
+        <figcaption>
+          <strong>渔线</strong>
+          <em>普通 · 稀有 · 史诗</em>
+          <span>一根亮线缠在藤壶礁上，延伸进海里。</span>
+        </figcaption>
+      </figure><figure class="wide" data-rarities="普通 稀有 史诗">
+        <img src="art/foam-box.jpg" alt="泡沫箱的阔画">
+        <figcaption>
+          <strong>泡沫箱</strong>
+          <em>普通 · 稀有 · 史诗</em>
+          <span>白泡沫箱搁在风暴后的沙滩上，盖子掀着一条缝。</span>
+        </figcaption>
+      </figure><figure class="wide" data-rarities="普通 稀有 史诗">
+        <img src="art/balloon.jpg" alt="气球的阔画">
+        <figcaption>
+          <strong>气球</strong>
+          <em>普通 · 稀有 · 史诗</em>
+          <span>一只心形红气球瘪在黑礁上，结还系着，绳子垂下来。</span>
+        </figcaption>
+      </figure><figure class="wide" data-rarities="普通 稀有 史诗">
+        <img src="art/tire.jpg" alt="轮胎的阔画">
+        <figcaption>
+          <strong>轮胎</strong>
+          <em>普通 · 稀有 · 史诗</em>
+          <span>一只旧轮胎卡在峡湾里，外圈住满藤壶。</span>
+        </figcaption>
+      </figure><figure class="wide" data-rarities="普通 稀有">
+        <img src="art/bottle-cap.jpg" alt="瓶盖的阔画">
+        <figcaption>
+          <strong>瓶盖</strong>
+          <em>普通 · 稀有</em>
+          <span>一枚没有字的铁盖，齿纹朝下，旁边一滴水。</span>
+        </figcaption>
+      </figure><figure class="wide" data-rarities="普通 稀有">
+        <img src="art/straw.jpg" alt="吸管的阔画">
+        <figcaption>
+          <strong>吸管</strong>
+          <em>普通 · 稀有</em>
+          <span>弯吸管插在沙里，还保持着喝的角度。</span>
+        </figcaption>
+      </figure><figure class="wide" data-rarities="普通 稀有">
+        <img src="art/lighter.jpg" alt="打火机的阔画">
+        <figcaption>
+          <strong>打火机</strong>
+          <em>普通 · 稀有</em>
+          <span>橘红色打火机立在黑卵石上，轮子还在。</span>
+        </figcaption>
+      </figure><figure class="wide" data-rarities="普通 稀有">
+        <img src="art/toothbrush.jpg" alt="牙刷的阔画">
+        <figcaption>
+          <strong>牙刷</strong>
+          <em>普通 · 稀有</em>
+          <span>黄牙刷半截埋在沙里，刷毛朝向海。</span>
+        </figcaption>
+      </figure><figure class="wide" data-rarities="普通 稀有">
+        <img src="art/mask.jpg" alt="口罩的阔画">
+        <figcaption>
+          <strong>口罩</strong>
+          <em>普通 · 稀有</em>
+          <span>浅蓝口罩和海藻缠在一起，耳绳还在。</span>
+        </figcaption>
+      </figure><figure class="wide" data-rarities="普通 稀有">
+        <img src="art/cigarette.jpg" alt="烟蒂的阔画">
+        <figcaption>
+          <strong>烟蒂</strong>
+          <em>普通 · 稀有</em>
+          <span>一支灭了的烟立在潮线边上，滤嘴埋进沙里。</span>
+        </figcaption>
+      </figure><figure class="wide" data-rarities="普通 稀有">
+        <img src="art/takeout-box.jpg" alt="外卖盒的阔画">
+        <figcaption>
+          <strong>外卖盒</strong>
+          <em>普通 · 稀有</em>
+          <span>扣紧的白色外卖盒，盒面上没有字。</span>
+        </figcaption>
+      </figure><figure class="wide" data-rarities="普通 稀有">
+        <img src="art/six-pack-ring.jpg" alt="罐环的阔画">
+        <figcaption>
+          <strong>罐环</strong>
+          <em>普通 · 稀有</em>
+          <span>一排连着的圆塑料环躺在沙上，旁边一只蟹。</span>
+        </figcaption>
+      </figure></div>
+    <div id="backView" class="back-view" hidden>
+      <figure>
+        <img src="flat/OG-001.png" alt="塑料瓶普通平卡正面">
+        <figcaption>正面 · 塑料瓶</figcaption>
+      </figure>
+      <figure>
+        <img src="back/tide-1.png" alt="退潮卡背">
+        <figcaption>卡背 · 整套共用</figcaption>
+      </figure>
+      <p class="back-note">整套五十张共用这一张背面。纹章是那枚还没找到的瓶盖，翻开之前看不出稀有度。</p>
+    </div>
+  </main>
+  <dialog id="detail">
+    <div class="detail">
+      <img id="flatImg" alt="">
+      <div>
+        <img id="wideImg" alt="">
+        <h3 id="dName"></h3>
+        <p class="meta" id="dMeta"></p>
+        <p class="flavor" id="dFlavor"></p>
+        <button class="close" type="button" id="closeDetail">合上</button>
+      </div>
+    </div>
+  </dialog>
+  <script>
+    const cards = [{"id":"OG-001","name":"塑料瓶","rarity":"普通","lines":["盖子拧紧了。","海没有。"],"flat":"flat/OG-001.png","painting":"art/plastic-bottle.jpg"},{"id":"OG-002","name":"塑料瓶","rarity":"稀有","lines":["标签还在。","保质期写着：涨潮。"],"flat":"flat/OG-002.png","painting":"art/plastic-bottle.jpg"},{"id":"OG-003","name":"塑料瓶","rarity":"史诗","lines":["瓶中装着半口风。","像一封未寄出的信。"],"flat":"flat/OG-003.png","painting":"art/plastic-bottle.jpg"},{"id":"OG-004","name":"塑料瓶","rarity":"传说","lines":["找到瓶盖的人，","就能把这截海岸","重新封上。"],"flat":"flat/OG-004.png","painting":"art/plastic-bottle-legend.jpg"},{"id":"OG-005","name":"塑料袋","rarity":"普通","lines":["它跟着浪走，","比鱼还勤。"],"flat":"flat/OG-005.png","painting":"art/plastic-bag.jpg"},{"id":"OG-006","name":"塑料袋","rarity":"稀有","lines":["撑开时像一只","不会下沉的水母。"],"flat":"flat/OG-006.png","painting":"art/plastic-bag.jpg"},{"id":"OG-007","name":"塑料袋","rarity":"史诗","lines":["渔民叫它白帆。","帆上没有船。"],"flat":"flat/OG-007.png","painting":"art/plastic-bag.jpg"},{"id":"OG-008","name":"塑料袋","rarity":"传说","lines":["它曾罩住月亮。","月亮挣脱之后，","只留下一只把手。"],"flat":"flat/OG-008.png","painting":"art/plastic-bag-legend.jpg"},{"id":"OG-009","name":"玻璃瓶","rarity":"普通","lines":["绿玻璃躺在潮池里，","月亮已经上来了。"],"flat":"flat/OG-009.png","painting":"art/glass-bottle.jpg"},{"id":"OG-010","name":"玻璃瓶","rarity":"稀有","lines":["瓶底的年份，","比灯塔更早。"],"flat":"flat/OG-010.png","painting":"art/glass-bottle.jpg"},{"id":"OG-011","name":"玻璃瓶","rarity":"史诗","lines":["对着瓶口倾听，","旧航线一声，","又一声。"],"flat":"flat/OG-011.png","painting":"art/glass-bottle.jpg"},{"id":"OG-012","name":"玻璃瓶","rarity":"传说","lines":["软木塞还在。","里面的信，","写成了盐。"],"flat":"flat/OG-012.png","painting":"art/glass-bottle-legend.jpg"},{"id":"OG-013","name":"渔网","rarity":"普通","lines":["网住两只拖鞋，","和一段下午。"],"flat":"flat/OG-013.png","painting":"art/fishing-net.jpg"},{"id":"OG-014","name":"渔网","rarity":"稀有","lines":["补过三次。","每一次都比鱼","更有耐心。"],"flat":"flat/OG-014.png","painting":"art/fishing-net.jpg"},{"id":"OG-015","name":"渔网","rarity":"史诗","lines":["退潮后它还立着，","像一座没有渔夫的门。"],"flat":"flat/OG-015.png","painting":"art/fishing-net.jpg"},{"id":"OG-016","name":"渔网","rarity":"传说","lines":["它不再捕鱼。","鱼从网眼里游过，","向它行礼。"],"flat":"flat/OG-016.png","painting":"art/fishing-net-legend.jpg"},{"id":"OG-017","name":"易拉罐","rarity":"普通","lines":["拉环还在。","汽早就加入了洋流。"],"flat":"flat/OG-017.png","painting":"art/soda-can.jpg"},{"id":"OG-018","name":"易拉罐","rarity":"稀有","lines":["红圈还亮着。","里面的汽，已经入海。"],"flat":"flat/OG-018.png","painting":"art/soda-can.jpg"},{"id":"OG-019","name":"易拉罐","rarity":"史诗","lines":["摇一摇。","里面是干了的潮声。"],"flat":"flat/OG-019.png","painting":"art/soda-can.jpg"},{"id":"OG-020","name":"人字拖","rarity":"普通","lines":["左脚。","右脚在下一季季风里。"],"flat":"flat/OG-020.png","painting":"art/flip-flop.jpg"},{"id":"OG-021","name":"人字拖","rarity":"稀有","lines":["鞋底的纹路，","还记得一个人的重量。"],"flat":"flat/OG-021.png","painting":"art/flip-flop.jpg"},{"id":"OG-022","name":"人字拖","rarity":"史诗","lines":["另一只成了蟹的屋顶。","这只负责怀念。"],"flat":"flat/OG-022.png","painting":"art/flip-flop.jpg"},{"id":"OG-023","name":"渔线","rarity":"普通","lines":["缠在礁石上，","亮得像一句没写完的话。"],"flat":"flat/OG-023.png","painting":"art/fishing-line.jpg"},{"id":"OG-024","name":"渔线","rarity":"稀有","lines":["另一头沉进海里，","钓着一整段沉默。"],"flat":"flat/OG-024.png","painting":"art/fishing-line.jpg"},{"id":"OG-025","name":"渔线","rarity":"史诗","lines":["有人沿这根线走远，","走回了自己的船。"],"flat":"flat/OG-025.png","painting":"art/fishing-line.jpg"},{"id":"OG-026","name":"泡沫箱","rarity":"普通","lines":["曾经装过鱼。","现在装风，也不漏。"],"flat":"flat/OG-026.png","painting":"art/foam-box.jpg"},{"id":"OG-027","name":"泡沫箱","rarity":"稀有","lines":["盖子掀着一条缝。","里面是干燥的、","不属于海的黑暗。"],"flat":"flat/OG-027.png","painting":"art/foam-box.jpg"},{"id":"OG-028","name":"泡沫箱","rarity":"史诗","lines":["它漂过三个台风，","形状还是一只箱子。"],"flat":"flat/OG-028.png","painting":"art/foam-box.jpg"},{"id":"OG-029","name":"气球","rarity":"普通","lines":["瘪了。","颜色还记得生日。"],"flat":"flat/OG-029.png","painting":"art/balloon.jpg"},{"id":"OG-030","name":"气球","rarity":"稀有","lines":["绳子的结打得认真，","像还准备升空。"],"flat":"flat/OG-030.png","painting":"art/balloon.jpg"},{"id":"OG-031","name":"气球","rarity":"史诗","lines":["夜潮把它托上礁石。","远远看去，","像一颗搁浅的心。"],"flat":"flat/OG-031.png","painting":"art/balloon.jpg"},{"id":"OG-032","name":"轮胎","rarity":"普通","lines":["每座海湾都有一个，","所以它只算普通。"],"flat":"flat/OG-032.png","painting":"art/tire.jpg"},{"id":"OG-033","name":"轮胎","rarity":"稀有","lines":["藤壶住满了外圈，","把它当成移动的岛。"],"flat":"flat/OG-033.png","painting":"art/tire.jpg"},{"id":"OG-034","name":"轮胎","rarity":"史诗","lines":["孩子们叫它船。","海同意了半个下午。"],"flat":"flat/OG-034.png","painting":"art/tire.jpg"},{"id":"OG-035","name":"瓶盖","rarity":"普通","lines":["齿纹还锋利。","它告别的瓶子","在很远的地方。"],"flat":"flat/OG-035.png","painting":"art/bottle-cap.jpg"},{"id":"OG-036","name":"瓶盖","rarity":"稀有","lines":["内侧的漆还亮着。","海把它擦得很认真。"],"flat":"flat/OG-036.png","painting":"art/bottle-cap.jpg"},{"id":"OG-037","name":"吸管","rarity":"普通","lines":["弯折处还保持着","喝饮料的角度。"],"flat":"flat/OG-037.png","painting":"art/straw.jpg"},{"id":"OG-038","name":"吸管","rarity":"稀有","lines":["一整根，没有断。","收藏家为此","沉默了很久。"],"flat":"flat/OG-038.png","painting":"art/straw.jpg"},{"id":"OG-039","name":"打火机","rarity":"普通","lines":["打不着。","轮子还记得拇指。"],"flat":"flat/OG-039.png","painting":"art/lighter.jpg"},{"id":"OG-040","name":"打火机","rarity":"稀有","lines":["防风罩完好。","火没有了，","风也进不去。"],"flat":"flat/OG-040.png","painting":"art/lighter.jpg"},{"id":"OG-041","name":"牙刷","rarity":"普通","lines":["刷毛还翘着。","像在给沙滩刷牙。"],"flat":"flat/OG-041.png","painting":"art/toothbrush.jpg"},{"id":"OG-042","name":"牙刷","rarity":"稀有","lines":["颜色新鲜得不像话。","海把它保护得太好。"],"flat":"flat/OG-042.png","painting":"art/toothbrush.jpg"},{"id":"OG-043","name":"口罩","rarity":"普通","lines":["耳绳还打着结。","主人先一步走了。"],"flat":"flat/OG-043.png","painting":"art/mask.jpg"},{"id":"OG-044","name":"口罩","rarity":"稀有","lines":["折叠得很整齐，","像一枚认真穿过的壳。"],"flat":"flat/OG-044.png","painting":"art/mask.jpg"},{"id":"OG-045","name":"烟蒂","rarity":"普通","lines":["它立在潮线边上。","火已经灭了。"],"flat":"flat/OG-045.png","painting":"art/cigarette.jpg"},{"id":"OG-046","name":"烟蒂","rarity":"稀有","lines":["海盐爬上了滤嘴。","火是很久以前的事。"],"flat":"flat/OG-046.png","painting":"art/cigarette.jpg"},{"id":"OG-047","name":"外卖盒","rarity":"普通","lines":["扣盖还响。","菜喂过整条海岸线。"],"flat":"flat/OG-047.png","painting":"art/takeout-box.jpg"},{"id":"OG-048","name":"外卖盒","rarity":"稀有","lines":["盒底印着一条街。","那条街离海很远。"],"flat":"flat/OG-048.png","painting":"art/takeout-box.jpg"},{"id":"OG-049","name":"罐环","rarity":"普通","lines":["罐子都走了。","环还圈着空气。"],"flat":"flat/OG-049.png","painting":"art/six-pack-ring.jpg"},{"id":"OG-050","name":"罐环","rarity":"稀有","lines":["小蟹从环旁经过，","头也不回。"],"flat":"flat/OG-050.png","painting":"art/six-pack-ring.jpg"}];
+    const byId = Object.fromEntries(cards.map((card) => [card.id, card]));
+    const flatView = document.getElementById("flatView");
+    const wideView = document.getElementById("wideView");
+    const backView = document.getElementById("backView");
+    const count = document.getElementById("count");
+    let filter = "全部";
+    let mode = "flat";
+
+    function apply() {
+      const buttons = [...document.querySelectorAll(".card")];
+      let shown = 0;
+      for (const button of buttons) {
+        const visible = filter === "全部" || button.dataset.rarity === filter;
+        button.hidden = !visible;
+        if (visible) shown += 1;
+      }
+      for (const group of document.querySelectorAll(".group")) {
+        const groupCards = [...group.querySelectorAll(".card")];
+        const shownCards = groupCards.filter((card) => !card.hidden);
+        group.hidden = shownCards.length === 0;
+        const label = group.querySelector("h2 span");
+        label.textContent = filter === "全部" ? groupCards.length + " 张" : shownCards.length + " / " + groupCards.length;
+      }
+      for (const figure of document.querySelectorAll(".wide")) {
+        figure.hidden = filter !== "全部" && !figure.dataset.rarities.split(" ").includes(filter);
+      }
+      const wideShown = [...document.querySelectorAll(".wide")].filter((figure) => !figure.hidden).length;
+      if (mode === "back") count.textContent = "卡背 1";
+      else if (mode === "flat") count.textContent = "平卡 " + shown + " / " + buttons.length;
+      else count.textContent = "阔画 " + wideShown + " / " + document.querySelectorAll(".wide").length;
+    }
+
+    function setMode(next) {
+      mode = next;
+      flatView.hidden = mode !== "flat";
+      wideView.hidden = mode !== "wide";
+      backView.hidden = mode !== "back";
+      document.getElementById("showFlat").setAttribute("aria-pressed", String(mode === "flat"));
+      document.getElementById("showWide").setAttribute("aria-pressed", String(mode === "wide"));
+      document.getElementById("showBack").setAttribute("aria-pressed", String(mode === "back"));
+      apply();
+    }
+    document.getElementById("showFlat").addEventListener("click", () => setMode("flat"));
+    document.getElementById("showWide").addEventListener("click", () => setMode("wide"));
+    document.getElementById("showBack").addEventListener("click", () => setMode("back"));
+    for (const button of document.querySelectorAll("[data-filter]")) {
+      button.addEventListener("click", () => {
+        filter = button.dataset.filter;
+        for (const item of document.querySelectorAll("[data-filter]")) {
+          item.setAttribute("aria-pressed", String(item === button));
+        }
+        apply();
+      });
+    }
+    const dialog = document.getElementById("detail");
+    flatView.addEventListener("click", (event) => {
+      const button = event.target.closest(".card");
+      if (!button) return;
+      const card = byId[button.dataset.id];
+      document.getElementById("flatImg").src = card.flat;
+      document.getElementById("flatImg").alt = card.name + "平卡";
+      document.getElementById("wideImg").src = card.painting;
+      document.getElementById("wideImg").alt = card.name + "阔画";
+      document.getElementById("dName").textContent = card.name;
+      document.getElementById("dMeta").textContent = card.id + " · " + card.rarity;
+      document.getElementById("dFlavor").innerHTML = card.lines.map((line) => line.replace(/&/g, "&amp;").replace(/</g, "&lt;")).join("<br>");
+      dialog.showModal();
+    });
+    document.getElementById("closeDetail").addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+    apply();
+  </script>
+</body>
+</html>
