@@ -1,4 +1,5 @@
 node_modules/
+# Portable Node.js downloaded on first launch.
 .tools/
 dist/
 *.log

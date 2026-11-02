@@ -1,4 +1,4 @@
-﻿# First launch prepares Node.js and dependencies. Later launches are handled by the bat file.
+﻿# First launch prepares Node.js and dependencies when they are missing. Later launches are handled by the bat file.
 $ErrorActionPreference = 'Stop'
 if (Get-Variable PSNativeCommandUseErrorActionPreference -ErrorAction SilentlyContinue) {
   $PSNativeCommandUseErrorActionPreference = $false

@@ -1,4 +1,5 @@
 @echo off
+rem First launch downloads portable Node.js when this computer does not have it.
 cd /d "%~dp0"
 if exist "node_modules\electron\dist\electron.exe" (
   start "" /D "%~dp0" "%~dp0node_modules\electron\dist\electron.exe" .
